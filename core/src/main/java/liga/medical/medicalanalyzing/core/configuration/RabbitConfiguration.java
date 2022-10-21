@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfiguration {
     public static final String ROUTER_QUEUE_NAME = "common_router_queue";
-    private static final String HOST = "rmqhost";
+    private static final String HOST = "hostrabbitmq";
 
     @Bean
     public ConnectionFactory connectionFactory() {
