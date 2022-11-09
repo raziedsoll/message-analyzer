@@ -2,8 +2,9 @@ package liga.medical.medicalanalyzing.core.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import liga.medical.medicalanalyzing.core.annotations.DbLog;
 import liga.medical.medicalanalyzing.core.api.MessageSenderService;
-import liga.medical.model.RabbitMessageDto;
+import liga.medical.dto.RabbitMessageDto;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,10 @@ public class MessageSenderServiceImplemetation implements MessageSenderService {
         this.objectMapper = objectMapper;
     }
 
+    @DbLog
     @Override
     public void sendMessage(RabbitMessageDto messageDto, String queue) throws JsonProcessingException {
         String messageStr = objectMapper.writeValueAsString(messageDto);
         amqpTemplate.convertAndSend(queue, messageStr);
-        System.out.println(String.format("Сообщение " + messageStr + " в очередь " + queue + " отправлено!"));
     }
 }
